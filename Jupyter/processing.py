@@ -10,6 +10,8 @@ import re
 def get_products(product = "sprite"):
     headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9) Gecko/2008051206 Firefox/3.0'}
     amazon_request = requests.post('https://www.amazon.com/s?k={}'.format(product), headers)
+    if 'robot' in amazon_request.text:
+        print('Product query failure: bot detected')
     return amazon_request.text
 
 def parse_asins(items):
@@ -44,6 +46,8 @@ def get_product_reviews(asin):
     # Find some chrome user agent strings  here https://udger.com/resources/ua-list/browser-detail?browser=Chrome
     headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9) Gecko/2008051206 Firefox/3.0'}
     page = requests.post(amazon_url,headers = headers,verify=False)
+    if 'robot' in page.text:
+        print('Product query failure: bot detected during review scraping')
     if 'data-hook="review-collapsed"' in page.text:
         _reviews = [m.start() for m in re.finditer('data-hook="review-collapsed"', page.text)]
         a, b, reviews = 114, 10000, []
@@ -53,9 +57,9 @@ def get_product_reviews(asin):
     return None
 
 def get_sentiment(comment):
-    perspective_url = 'https://language.googleapis.com/v1/documents:analyzeEntities?key=AIzaSyDHHCAG-BhRFaUxq2NRz2LG0tPiVNB4bos'
-    perspective_data = '{{\'document\': {{\'type\': \'PLAIN_TEXT\', \'content\': \'{}\'}}, \'encodingType\': \'UTF8\'}}'.format(comment)
-    r = requests.post(perspective_url, data = perspective_data)
+    _url = 'https://language.googleapis.com/v1/documents:analyzeEntities?key=AIzaSyDHHCAG-BhRFaUxq2NRz2LG0tPiVNB4bos'
+    _data = '{{\'document\': {{\'type\': \'PLAIN_TEXT\', \'content\': \'{}\'}}, \'encodingType\': \'UTF8\'}}'.format(comment.encode("utf-8").decode("ascii","ignore"))
+    r = requests.post(_url, data = _data)
     return r.json()
 
 def extract_single_review_sentiment(product, item, review):
@@ -76,7 +80,7 @@ def get_product_sentiment(product, product_count):
             sentiments.append(get_sentiment(review))
     return sentiments
 
-items = get_products("sprite")
-asins = parse_asins(items)
-reviews = get_product_reviews(asins[1])
-sentiment = get_sentiment(reviews[1])
+#items = get_products("sprite")
+#asins = parse_asins(items)
+#reviews = get_product_reviews(asins[1])
+#sentiment = get_sentiment(reviews[1])
