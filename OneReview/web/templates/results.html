@@ -2,11 +2,10 @@
 
 {% block content %}
   <h1 class="display-2 ml-3">{{ query }}</h1>
-  <"div" class="container">
+  <div class="container">
     <div class="row">
       <!-- review summary -->
       <div class="col-sm">
-
       </div>
       <!-- line graph (use dash from plot.ly, possibly bokeh instead,
            whatever's easier) -->
@@ -17,7 +16,7 @@
     </div>
     <!-- word cloud -->
     <div class="row">
-
+	<img src="data:image/png;base64,{{cloud_image|safe}}">
     </div>
   </div>
 {% endblock %}
