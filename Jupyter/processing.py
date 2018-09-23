@@ -56,10 +56,16 @@ def get_product_reviews(asin):
         return reviews
     return None
 
-def get_sentiment(comment):
+def get_salience(comment):
     _url = 'https://language.googleapis.com/v1/documents:analyzeEntities?key=AIzaSyDHHCAG-BhRFaUxq2NRz2LG0tPiVNB4bos'
-    _data = '{{\'document\': {{\'type\': \'PLAIN_TEXT\', \'content\': \'{}\'}}, \'encodingType\': \'UTF8\'}}'.format(comment.encode("utf-8").decode("ascii","ignore"))
+    _data = '{{\'document\': {{\'type\': \'PLAIN_TEXT\', \'content\': \'{}\'}}, \'encodingType\': \'UTF8\'}}'.format(comment.encode("utf-8").decode("utf-8"))
     r = requests.post(_url, data = _data)
+    return r.json()
+
+def get_sentiment(comment):
+    perspective_url = 'https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=AIzaSyDHHCAG-BhRFaUxq2NRz2LG0tPiVNB4bos'
+    perspective_data = '{{comment: {{text: "{}"}}, languages: ["en"], requestedAttributes: {{TOXICITY:{{}}}}}}'.format(comment.encode("utf-8").decode("ascii","ignore"))
+    r = requests.post(perspective_url, data = perspective_data)
     return r.json()
 
 def extract_single_review_sentiment(product, item, review):
@@ -74,13 +80,19 @@ def get_product_sentiment(product, product_count):
     for asin in asins[:product_count]:
         #This is likely to get filtered for excessive querying
         item_reviews.append(get_product_reviews(asin))
-    sentiments = []
+    return item_reviews
+    '''salience = []
     for item in item_reviews:
         for review in item:
-            sentiments.append(get_sentiment(review))
-    return sentiments
-
+            salience.append((get_sentiment(review), get_salience(review)))
+    return salience'''
+    
 #items = get_products("sprite")
 #asins = parse_asins(items)
 #reviews = get_product_reviews(asins[1])
 #sentiment = get_sentiment(reviews[1])
+data = get_product_sentiment("soylent", 2)
+data_string = ''
+for row in data:
+    for datum in row:
+        data_string += datum
