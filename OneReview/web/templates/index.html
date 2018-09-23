@@ -4,7 +4,10 @@
   <h1 class="display-4 text-center mt-5">Find verified reviews. Instantly.</h1>
   <!-- Search form -->
   <div class="active-cyan-4 mb-4 mt-5">
-    <input class="form-control mx-auto" type="text" placeholder="Search for a product..." aria-label="Search" id="search">
+  <form action="/web/" method="post">
+    <input class="form-control mx-auto" type="text" placeholder="Search for a product..." aria-label="Search" id="search" value=" {{ search }} ">
+    <input type="submit" value="OK" class="mx-auto mt-3 text-center" />
+  </form>
   </div>
   <img src="../static/capone.png" class="img-thumbnail fixed-bottom mb-5 mx-auto" />
 {% endblock %}
