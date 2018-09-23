@@ -18,8 +18,12 @@ class User(models.Model):
 
 class Cloud(models.Model):
     # get data directory (using getcwd() is needed to support running example in generated IPython notebook)
+<<<<<<< HEAD
     def generate_cloud(cloud_path):
         print("cloud")
+=======
+    def generate_cloud(cloud_text):
+>>>>>>> 3a5e842b4c67403baf39a11cd794ed82d333162d
         # get path for wordcloud
         # d = path.dirname(__file__) if "__file__" in locals() else os.getcwd()
 
