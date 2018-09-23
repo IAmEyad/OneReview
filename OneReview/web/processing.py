@@ -90,8 +90,9 @@ def get_product_sentiment(product, product_count):
 #asins = parse_asins(items)
 #reviews = get_product_reviews(asins[1])
 #sentiment = get_sentiment(reviews[1])
-data = get_product_sentiment("soylent", 2)
+'''data = get_product_sentiment("soylent", 2)
 data_string = ''
 for row in data:
-    for datum in row:
-        data_string += datum
+    if type(row) is not None:
+        for datum in row:
+            data_string += datum'''

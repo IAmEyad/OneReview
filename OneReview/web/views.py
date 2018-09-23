@@ -12,7 +12,7 @@ def about(request):
     return render(request, 'about.html')
 
 def results(request):
-    text_reviews = 'This is a test test test test test'#GetAmazonReviews.getTextReviews('soylent')
+    text_reviews = GetAmazonReviews.getTextReviews('soylent')
     cloud_image = Cloud.generate_cloud(text_reviews)
     context = {
             'text': text_reviews,
