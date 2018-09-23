@@ -6,8 +6,14 @@
   <div class="active-cyan-4 mb-4 mt-5">
   <form action="/web/" method="post">
     {% csrf_token %}
-    <label for="Search">Search: </label>
     <input id="search" class="form-control mx-auto" type="text" placeholder="Search for a product..." aria-label="Search" >
+    <div style="text-align:center">
+    <a href="{% url 'results' %}"
+      class="btn btn-primary btn-md active mt-4"
+      role="button"
+      aria-pressed="true"
+      style="width: 100px; display: block; text-align:center">Submit</a>
+    </div>
   </form>
   </div>
   <img src="../static/capone.png" class="img-thumbnail fixed-bottom mb-5 mx-auto" />
