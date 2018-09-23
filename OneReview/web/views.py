@@ -28,10 +28,11 @@ def verify(request):
 def get_query(request):
     if request.method == 'POST':
         form = QueryForm(request.POST)
+        print(form)
 
         if form.is_valid():
-            
-            return HttpResponseRedirect('results.html')
+
+            return render(request, 'results.html')
 
     else:
         form = QueryForm()
