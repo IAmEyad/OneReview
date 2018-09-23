@@ -1,0 +1,6 @@
+runtime: python
+env: flex 
+entrypoint: python ./OneReview/manage.py runserver
+
+runtime_config:
+    python_vesrion: 3.6
