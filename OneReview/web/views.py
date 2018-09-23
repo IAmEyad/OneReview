@@ -1,6 +1,6 @@
 import requests
 
-from . import forms
+from .forms import QueryForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from web.models import *
@@ -27,13 +27,13 @@ def verify(request):
 
 def get_query(request):
     if request.method == 'POST':
-        form = forms.QueryForm(request.POST)
+        form = QueryForm(request.POST)
 
         if form.is_valid():
-
+            
             return HttpResponseRedirect('results.html')
 
     else:
-        form = forms.QueryForm()
+        form = QueryForm()
     
     return render(request, 'index.html', {'form' : form})
