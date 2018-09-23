@@ -3,15 +3,23 @@ from wordcloud import WordCloud
 # import matplotlib.pyplot as plt
 import os
 from os import path
+from io import StringIO
+from web.processing import *
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+from matplotlib.dates import DateFormatter
+
+import base64
+from io import BytesIO
 
 # Create your models here.
 class User(models.Model):
-<<<<<<< HEAD
     full_name = models.CharField(max_length=70)
 
 class Cloud(models.Model):
     # get data directory (using getcwd() is needed to support running example in generated IPython notebook)
     def generate_cloud(cloud_path):
+        print("cloud")
         # get path for wordcloud
         # d = path.dirname(__file__) if "__file__" in locals() else os.getcwd()
 
@@ -19,13 +27,25 @@ class Cloud(models.Model):
         # text = open(path.join(d, 'constitution.txt')).read()
 
         # Generate a word cloud image
-        wordcloud = WordCloud().generate(text)
+        wordcloud = WordCloud().generate(cloud_path)
 
         image = wordcloud.to_image()
-        image.show()
-=======
-    client_id = "8866cf47fe3a4522850c976d63264010"
-    client_secret = "c97562a079ce4b855e372e8f8d9d6976"
-    redirect_uri = "https://127.0.0.1"
-    access_token ="eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwicGNrIjoxLCJhbGciOiJkaXIiLCJ0diI6Miwia2lkIjoicjRxIn0..xaLM_sX8uPsqyx4puK9YDg.QhewccHzdiAeDfAU1y7Sn6v_5ShXxMQcqvZcui72lz7Ih2Dv6zid1HdkjWkONbTPyOWKOs41x8DwdMPfocTFy2_MmX0VkfAwjqQoih4MVfky-uchuV7TNDMjxp9bRY6-JgGsmUDXObBBfh1nCIWauVvSP7Tb5-sa14QWrt5-TYd4xxOFq9FBtSa1ivJvGsUQDIsP3_9_K_lKFsMJyCVDmGiuPlCKdDliMkrFKISdxiVJz4Sj1q8eIG2shzs2GSQUHBICJDmdxydmWL1EsELo-odPmik78Xi7XyLVpglaYYQ.acTU2RTA8zKCU985gJyI4g"
->>>>>>> Django-Backend
+        
+        #imgdata = StringIO()
+        #image.imsave(imgdata, format='png')
+        #imgdata.seek(0)
+        
+        #return image#imgdata
+        buffered = BytesIO()
+        image.save(buffered, format="JPEG")
+        img_str = base64.b64encode(buffered.getvalue())
+        return img_str
+
+class GetAmazonReviews(models.Model):
+    def getTextReviews(product):
+        data = get_product_sentiment(product, 2)
+        data_string = ''
+        for row in data:
+            for datum in row:
+                data_string += datum
+        return data_string
