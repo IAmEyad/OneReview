@@ -6,7 +6,8 @@
   <div class="active-cyan-4 mb-4 mt-5">
   <form action="/web/" method="post">
     {% csrf_token %}
-    <input class="form-control mx-auto" type="text" placeholder="Search for a product..." aria-label="Search" id="search" value=" {{ search }} ">
+    
+    <input class="form-control mx-auto" type="text" placeholder="Search for a product..." aria-label="Search" id="search">
     <input type="submit" value="OK" class="mx-auto mt-3 text-center" />
   </form>
   </div>
