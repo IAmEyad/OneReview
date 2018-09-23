@@ -26,6 +26,8 @@ class Cloud(models.Model):
         # text = open(path.join(d, 'constitution.txt')).read()
 
         # Generate a word cloud image
+        if len(cloud_path) is 0:
+            cloud_path = "This product is the best best best. It gave me the biggliest of joy. This is a really good way to interface with the mainframe. I was super sweet, sweeter than just sweet. It's the best!"
         wordcloud = WordCloud().generate(cloud_path)
 
         image = wordcloud.to_image()
