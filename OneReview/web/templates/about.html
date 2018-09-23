@@ -2,4 +2,19 @@
 
 {% block content %}
   <h1 class="display-4 text-center pt-5">About OneReview</h1>
+  <h3 class="display-5 pl-3 pt-3">Our Motivation</h3>
+  <p class="pl-3 pr-3">
+    Anonymity online is both a blessing and a curse. While it enables people to be free of the constraints of the real world, it is a tool that can be used by adversaries for less-than-savory purposes. This could range anywhere from phony product reviews to, obviously, meddling in a national election.
+  </p>
+  <p class="pl-3 pr-3">
+    What we wanted to do with our hack is crack down on one of the more mild yet prevalent abuses of online anonymity, online product reviews. To users of the Internet, another's real name and username are not always as they seem.Sometimes, users alter names to protect their identity. Other times, companies falsify user accounts to artificially increase the online perception of their company or product. Abuses of this kind are proliferated far throughout the internet, but they are especially found on the internet's biggest retailer by a wide margin: Amazon.
+  </p>
+  <h3 class="display-5 pl-3 pt-3">Our Hack</h3>
+  <p class="pl-3 pr-3">
+    For our hack, we created an application that uses Google Cloud Platform to scrape reviews from Amazon for a given query, be it a product, company name, etc. We then take a look at the metadata for those reviews and attempt to verify the identities of the users using Capital One's Verify API. The user is then taken to a results page which displays the query provided, a summary of the reviews for that query, a plot of the reviews over time, and a word cloud of the verified reviews.
+  </p>
+  <h3 class="display-5 pl-3 pt-3">Our Goal</h3>
+  <p class="pl-3 pr-3">
+    Our goal with this hack is to both arm retailers with the knowledge of how their systems are being abused and to arm consumers with the confidence of being able to believe what they read online. As much as we were told growing up not to believe everything we read on the Internet, sometimes it's hard to identify in these times what is honest and what isn't. However, by utilizing the cutting-edge technology we have available, we can subvert the nefarious goals of those who wish to abuse the natural trust we all want to have in our fellow humans both on- and offline.
+  </p>
 {% endblock %}
