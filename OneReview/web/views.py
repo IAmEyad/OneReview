@@ -1,4 +1,6 @@
 import requests
+
+from .forms import QueryForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from web.models import *
@@ -22,3 +24,16 @@ def results(request):
 
 def verify(request):
     return HttpResponseRedirect('https://api-sandbox.capitalone.com/oauth2/authorize?client_id=8866cf47fe3a4522850c976d63264010&grant_type=authorization_code&redirect_uri=http://127.0.0.1:8000/&scope=verify&response_type=code')
+
+def get_query(request):
+    if request.method == 'POST':
+        form = QueryForm(request.POST)
+
+        if form.is_valid():
+            
+            return HttpResponseRedirect('results.html')
+
+    else:
+        form = QueryForm()
+    
+    return render(request, 'index.html', {'form' : form})
